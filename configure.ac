@@ -53,12 +53,6 @@ AC_CHECK_FUNCS([floor gettimeofday memset rint strcasecmp strerror strtol strtou
 
 AC_CONFIG_FILES([Makefile
                  devLib/Makefile
-                 examples/Gertboard/Makefile
-                 examples/Makefile
-                 examples/PiFace/Makefile
-                 examples/PiGlow/Makefile
-                 examples/q2w/Makefile
-                 gpio/Makefile
                  wiringPi/Makefile
                  wiringPi.pc
                  wiringPiDev.pc])

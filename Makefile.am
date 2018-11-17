@@ -1,4 +1,4 @@
-SUBDIRS = wiringPi devLib gpio
+SUBDIRS = wiringPi devLib
 
 # pkg-config files
 pkgconfiglibdir = $(libdir)/pkgconfig
