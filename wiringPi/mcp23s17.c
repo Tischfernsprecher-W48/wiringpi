@@ -212,10 +212,11 @@ static int myDigitalRead (struct wiringPiNodeStruct *node, int pin)
 
 int mcp23s17Setup (const int pinBase, const int spiPort, const int devId)
 {
+  int    x ;
   struct wiringPiNodeStruct *node ;
 
-  if (wiringPiSPISetup (spiPort, MCP_SPEED) < 0)
-    return FALSE ;
+  if ((x = wiringPiSPISetup (spiPort, MCP_SPEED)) < 0)
+    return x ;
 
   writeByte (spiPort, devId, MCP23x17_IOCON,  IOCON_INIT | IOCON_HAEN) ;
   writeByte (spiPort, devId, MCP23x17_IOCONB, IOCON_INIT | IOCON_HAEN) ;
@@ -231,5 +232,5 @@ int mcp23s17Setup (const int pinBase, const int spiPort, const int devId)
   node->data2           = readByte (spiPort, devId, MCP23x17_OLATA) ;
   node->data3           = readByte (spiPort, devId, MCP23x17_OLATB) ;
 
-  return TRUE ;
+  return 0 ;
 }

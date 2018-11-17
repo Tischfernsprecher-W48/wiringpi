@@ -1,7 +1,7 @@
 /*
  * drcSerial.c:
  *	Extend wiringPi with the DRC Serial protocol (e.g. to Arduino)
- *	Copyright (c) 2013-2016 Gordon Henderson
+ *	Copyright (c) 2013 Gordon Henderson
  ***********************************************************************
  * This file is part of wiringPi:
  *	https://projects.drogon.net/raspberry-pi/wiringpi/
@@ -31,6 +31,11 @@
 #include "wiringSerial.h"
 
 #include "drcSerial.h"
+
+#ifndef	TRUE
+#  define	TRUE	(1==1)
+#  define	FALSE	(1==2)
+#endif
 
 
 /*
@@ -151,7 +156,7 @@ int drcSetupSerial (const int pinBase, const int numPins, const char *device, co
   struct wiringPiNodeStruct *node ;
 
   if ((fd = serialOpen (device, baud)) < 0)
-    return FALSE ;
+    return wiringPiFailure (WPI_ALMOST, "Unable to open DRC device (%s): %s", device, strerror (errno)) ;
 
   delay (10) ;	// May need longer if it's an Uno that reboots on the open...
 
@@ -179,7 +184,7 @@ int drcSetupSerial (const int pinBase, const int numPins, const char *device, co
   if (!ok)
   {
     serialClose (fd) ;
-    return FALSE ;
+    return wiringPiFailure (WPI_FATAL, "Unable to communicate with DRC serial device") ;
   }
 
   node = wiringPiNewNode (pinBase, numPins) ;
@@ -192,5 +197,5 @@ int drcSetupSerial (const int pinBase, const int numPins, const char *device, co
   node->digitalWrite    = myDigitalWrite ;
   node->pwmWrite        = myPwmWrite ;
 
-  return TRUE ;
+  return 0 ;
 }

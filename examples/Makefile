@@ -1,9 +1,9 @@
 #
 # Makefile:
-#	wiringPi - A "wiring" library for the Raspberry Pi
+#	wiringPi - Wiring Compatable library for the Raspberry Pi
 #	https://projects.drogon.net/wiring-pi
 #
-#	Copyright (c) 2012-2015 Gordon Henderson
+#	Copyright (c) 2012 Gordon Henderson
 #################################################################################
 # This file is part of wiringPi:
 #	Wiring Compatable library for the Raspberry Pi
@@ -22,9 +22,6 @@
 #    along with wiringPi.  If not, see <http://www.gnu.org/licenses/>.
 #################################################################################
 
-ifneq ($V,1)
-Q ?= @
-endif
 
 #DEBUG	= -g -O0
 DEBUG	= -O3
@@ -33,7 +30,7 @@ INCLUDE	= -I/usr/local/include
 CFLAGS	= $(DEBUG) -Wall $(INCLUDE) -Winline -pipe
 
 LDFLAGS	= -L/usr/local/lib
-LDLIBS    = -lwiringPi -lwiringPiDev -lpthread -lm -lcrypt -lrt
+LDLIBS    = -lwiringPi -lwiringPiDev -lpthread -lm
 
 # Should not alter anything below this line
 ###############################################################################
@@ -47,123 +44,123 @@ SRC	=	blink.c blink8.c blink12.c					\
 		softPwm.c softTone.c 						\
 		delayTest.c serialRead.c serialTest.c okLed.c ds1302.c		\
 		lowPower.c							\
-		max31855.c							\
-		rht03.c
+		rht03.c piglow.c
 
 OBJ	=	$(SRC:.c=.o)
 
 BINS	=	$(SRC:.c=)
 
 all:	
-	$Q cat README.TXT
-	$Q echo "    $(BINS)" | fmt
-	$Q echo ""
+	@cat README.TXT
+	@echo "    $(BINS)" | fmt
+	@echo ""
 
 really-all:	$(BINS)
 
 blink:	blink.o
-	$Q echo [link]
-	$Q $(CC) -o $@ blink.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ blink.o $(LDFLAGS) $(LDLIBS)
 
 blink8:	blink8.o
-	$Q echo [link]
-	$Q $(CC) -o $@ blink8.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ blink8.o $(LDFLAGS) $(LDLIBS)
 
 blink12drcs:	blink12drcs.o
-	$Q echo [link]
-	$Q $(CC) -o $@ blink12drcs.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ blink12drcs.o $(LDFLAGS) $(LDLIBS)
 
 blink12:	blink12.o
-	$Q echo [link]
-	$Q $(CC) -o $@ blink12.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ blink12.o $(LDFLAGS) $(LDLIBS)
 
 speed:	speed.o
-	$Q echo [link]
-	$Q $(CC) -o $@ speed.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ speed.o $(LDFLAGS) $(LDLIBS)
 
 lcd:	lcd.o
-	$Q echo [link]
-	$Q $(CC) -o $@ lcd.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ lcd.o $(LDFLAGS) $(LDLIBS)
 
 lcd-adafruit:	lcd-adafruit.o
-	$Q echo [link]
-	$Q $(CC) -o $@ lcd-adafruit.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ lcd-adafruit.o $(LDFLAGS) $(LDLIBS)
 
 clock:	clock.o
-	$Q echo [link]
-	$Q $(CC) -o $@ clock.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ clock.o $(LDFLAGS) $(LDLIBS)
 
 wfi:	wfi.o
-	$Q echo [link]
-	$Q $(CC) -o $@ wfi.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ wfi.o $(LDFLAGS) $(LDLIBS)
 
 isr:	isr.o
-	$Q echo [link]
-	$Q $(CC) -o $@ isr.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ isr.o $(LDFLAGS) $(LDLIBS)
 
 isr-osc:	isr-osc.o
-	$Q echo [link]
-	$Q $(CC) -o $@ isr-osc.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ isr-osc.o $(LDFLAGS) $(LDLIBS)
 
 nes:	nes.o
-	$Q echo [link]
-	$Q $(CC) -o $@ nes.o $(LDFLAGS) $(LDLIBS) 
+	@echo [link]
+	@$(CC) -o $@ nes.o $(LDFLAGS) $(LDLIBS) 
 
 rht03:	rht03.o
-	$Q echo [link]
-	$Q $(CC) -o $@ rht03.o $(LDFLAGS) $(LDLIBS) 
+	@echo [link]
+	@$(CC) -o $@ rht03.o $(LDFLAGS) $(LDLIBS) 
 
 pwm:	pwm.o
-	$Q echo [link]
-	$Q $(CC) -o $@ pwm.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ pwm.o $(LDFLAGS) $(LDLIBS)
 
 softPwm:	softPwm.o
-	$Q echo [link]
-	$Q $(CC) -o $@ softPwm.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ softPwm.o $(LDFLAGS) $(LDLIBS)
 
 softTone:	softTone.o
-	$Q echo [link]
-	$Q $(CC) -o $@ softTone.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ softTone.o $(LDFLAGS) $(LDLIBS)
 
 delayTest:	delayTest.o
-	$Q echo [link]
-	$Q $(CC) -o $@ delayTest.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ delayTest.o $(LDFLAGS) $(LDLIBS)
 
 serialRead:	serialRead.o
-	$Q echo [link]
-	$Q $(CC) -o $@ serialRead.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ serialRead.o $(LDFLAGS) $(LDLIBS)
 
 serialTest:	serialTest.o
-	$Q echo [link]
-	$Q $(CC) -o $@ serialTest.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ serialTest.o $(LDFLAGS) $(LDLIBS)
 
 okLed:	okLed.o
-	$Q echo [link]
-	$Q $(CC) -o $@ okLed.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ okLed.o $(LDFLAGS) $(LDLIBS)
 
 tone:	tone.o
-	$Q echo [link]
-	$Q $(CC) -o $@ tone.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ tone.o $(LDFLAGS) $(LDLIBS)
 
 ds1302:	ds1302.o
-	$Q echo [link]
-	$Q $(CC) -o $@ ds1302.o $(LDFLAGS) $(LDLIBS)
+	@echo [link]
+	@$(CC) -o $@ ds1302.o $(LDFLAGS) $(LDLIBS)
 
-max31855:	max31855.o
-	$Q echo [link]
-	$Q $(CC) -o $@ max31855.o $(LDFLAGS) $(LDLIBS)
+piglow:	piglow.o
+	@echo [link]
+	@$(CC) -o $@ piglow.o $(LDFLAGS) $(LDLIBS)
+
 
 .c.o:
-	$Q echo [CC] $<
-	$Q $(CC) -c $(CFLAGS) $< -o $@
+	@echo [CC] $<
+	@$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
-	$Q echo "[Clean]"
-	$Q rm -f $(OBJ) *~ core tags $(BINS)
+	@echo "[Clean]"
+	@rm -f $(OBJ) *~ core tags $(BINS)
 
 tags:	$(SRC)
-	$Q echo [ctags]
-	$Q ctags $(SRC)
+	@echo [ctags]
+	@ctags $(SRC)
 
 depend:
 	makedepend -Y $(SRC)
