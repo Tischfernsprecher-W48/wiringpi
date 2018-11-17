@@ -1,18 +1,23 @@
 
-SRC	=	pins.tex
+ifneq ($V,1)
+Q ?= @
+endif
 
+SRC	=	pins.tex	\
+		odroid_xu3.tex	\
+		odroid_c1.tex	\
+		odroid_c2.tex	\
+		odroid_n1.tex
 
-all:		${SRC}
-	@echo	Generating DVI
-	@latex  pins.tex
+DVI	=	$(SRC:.tex=.dvi)
 
-pins.dvi:	pins.tex
-	@latex  pins.tex
+all:	$(DVI)
+	$Q echo	Generating DVI
 
-pdf:	pins.dvi
-	@dvipdf pins.dvi
-
+.tex.dvi:
+	$Q latex $< $@
+	$Q dvipdf $@
 
 .PHONY:	clean
 clean:
-	@rm -f *.dvi *.aux *.log *.ps *.toc *.bak *~
+	$Q rm -f *.dvi *.aux *.log *.ps *.toc *.bak *~
