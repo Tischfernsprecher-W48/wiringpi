@@ -28,8 +28,14 @@ dh_make --indep --createorig --copyright gpl --yes
 
 rm debian/*.ex debian/*.EX debian/README.Debian debian/README.source 
 
+cat <<EOF >>debian/rules
+override_dh_usrlocal:
+
+EOF
+
+
 cat <<EOF >debian/install
-$PROGRAMM usr/sbin
+wiringPi/.libs/*.* usr/local/lib/
 EOF
 
 debuild -us -uc
